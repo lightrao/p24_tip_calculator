@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'UTip Calculator',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
       home: const UTip(),
@@ -37,17 +37,21 @@ class _UTipState extends State<UTip> {
       ),
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
               padding: const EdgeInsets.all(18),
               child: Column(
                 children: [
-                  Text('Total Per Person'),
+                  Text(
+                    'Total Per Person',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
                   Text('\$23.89'),
                 ],
               ),
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: Theme.of(context).colorScheme.primary,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
