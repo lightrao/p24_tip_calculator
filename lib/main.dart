@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print(context.widget);
     return MaterialApp(
       title: 'UTip Calculator',
       theme: ThemeData(
@@ -31,6 +32,9 @@ class UTip extends StatefulWidget {
 class _UTipState extends State<UTip> {
   @override
   Widget build(BuildContext context) {
+    print(context.widget);
+    var theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('UTip Calculator'),
@@ -45,13 +49,16 @@ class _UTipState extends State<UTip> {
                 children: [
                   Text(
                     'Total Per Person',
-                    style: Theme.of(context).textTheme.displayMedium,
+                    style: theme.textTheme.titleMedium,
                   ),
-                  Text('\$23.89'),
+                  Text(
+                    '\$23.89',
+                    style: theme.textTheme.displaySmall,
+                  ),
                 ],
               ),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: theme.colorScheme.primary,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
