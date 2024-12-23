@@ -95,6 +95,34 @@ class _UTipState extends State<UTip> {
                         print(value);
                       },
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Split',
+                          style: theme.textTheme.titleMedium,
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              color: theme.colorScheme.primary,
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.remove,
+                              ),
+                            ),
+                            Text('2', style: theme.textTheme.titleMedium),
+                            IconButton(
+                              color: theme.colorScheme.primary,
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.add,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
