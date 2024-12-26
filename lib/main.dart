@@ -34,6 +34,15 @@ class UTip extends StatefulWidget {
 class _UTipState extends State<UTip> {
   int _personCount = 1;
   double _tipPercentage = 0.3; // Add this line
+  double _billTotal = 0.0; // Add this line
+
+  double totalPerPerson() {
+    return (_billTotal + _billTotal * _tipPercentage) / _personCount;
+  }
+
+  double totalTip() {
+    return _billTotal * _tipPercentage;
+  }
 
   // Methods
   void increment() {
@@ -52,6 +61,8 @@ class _UTipState extends State<UTip> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    double total = totalPerPerson();
+    double totalT = totalTip();
     final style = theme.textTheme.titleMedium!.copyWith(
       color: theme.colorScheme.onPrimary,
       fontWeight: FontWeight.bold,
@@ -76,7 +87,7 @@ class _UTipState extends State<UTip> {
                       style: style,
                     ),
                     Text(
-                      '\$23.89',
+                      '\$${total.toStringAsFixed(2)}',
                       style: style.copyWith(
                         color: theme.colorScheme.onPrimary,
                         fontSize: theme.textTheme.displaySmall?.fontSize,
@@ -107,9 +118,12 @@ class _UTipState extends State<UTip> {
                   children: [
                     BillAmountField(
                       onChanged: (String value) {
-                        print("Bill Amount: $value");
+                        // print("Bill Amount: $value");
+                        setState(() {
+                          _billTotal = double.parse(value);
+                        });
                       },
-                      billAmount: '100',
+                      billAmount: _billTotal.toString(),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,7 +144,8 @@ class _UTipState extends State<UTip> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('Tip', style: theme.textTheme.titleMedium),
-                        Text('\$15', style: theme.textTheme.titleMedium),
+                        Text('\$${totalT.toStringAsFixed(2)}',
+                            style: theme.textTheme.titleMedium),
                       ],
                     ),
                     Text('${(_tipPercentage * 100).round()}%',
