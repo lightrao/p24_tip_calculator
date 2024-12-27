@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:p24_tip_calculator/widgets/bill_amount_field.dart';
 import 'package:p24_tip_calculator/widgets/person_counter.dart';
+import 'package:p24_tip_calculator/widgets/tip_row.dart';
 import 'package:p24_tip_calculator/widgets/tip_slider.dart';
+import 'package:p24_tip_calculator/widgets/total_per_person.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,31 +78,7 @@ class _UTipState extends State<UTip> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                padding: const EdgeInsets.all(18),
-                child: Column(
-                  children: [
-                    Text(
-                      'Total Per Person',
-                      style: style,
-                    ),
-                    Text(
-                      '\$${total.toStringAsFixed(2)}',
-                      style: style.copyWith(
-                        color: theme.colorScheme.onPrimary,
-                        fontSize: theme.textTheme.displaySmall?.fontSize,
-                      ),
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
+            TotalPerPerson(style: style, total: total, theme: theme),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -125,29 +103,13 @@ class _UTipState extends State<UTip> {
                       },
                       billAmount: _billTotal.toString(),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Split',
-                          style: theme.textTheme.titleMedium,
-                        ),
-                        PersonCounter(
-                          theme: theme,
-                          personCount: _personCount,
-                          onDecrement: decrement,
-                          onIncrement: increment,
-                        ),
-                      ],
+                    PersonCounter(
+                      theme: theme,
+                      personCount: _personCount,
+                      onDecrement: decrement,
+                      onIncrement: increment,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Tip', style: theme.textTheme.titleMedium),
-                        Text('\$${totalT.toStringAsFixed(2)}',
-                            style: theme.textTheme.titleMedium),
-                      ],
-                    ),
+                    TipRow(theme: theme, totalT: totalT),
                     Text('${(_tipPercentage * 100).round()}%',
                         style: theme.textTheme.titleMedium), // Update this line
                     TipSlider(
