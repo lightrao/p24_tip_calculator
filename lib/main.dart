@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:p24_tip_calculator/provider/tip_calculator_model.dart';
+import 'package:p24_tip_calculator/providers/theme_provider.dart';
+import 'package:p24_tip_calculator/providers/tip_calculator_model.dart';
 import 'package:p24_tip_calculator/widgets/bill_amount_field.dart';
 import 'package:p24_tip_calculator/widgets/person_counter.dart';
 import 'package:p24_tip_calculator/widgets/tip_row.dart';
@@ -9,10 +10,10 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => TipCalculatorModel(),
-      child: const MyApp(),
-    ),
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (context) => TipCalculatorModel()),
+      ChangeNotifierProvider(create: (context) => ThemeProvider()),
+    ], child: const MyApp()),
   );
 }
 
@@ -44,6 +45,7 @@ class _UTipState extends State<UTip> {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<TipCalculatorModel>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     var theme = Theme.of(context);
     final style = theme.textTheme.titleMedium!.copyWith(
