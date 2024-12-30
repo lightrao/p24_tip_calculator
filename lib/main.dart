@@ -5,6 +5,7 @@ import 'package:p24_tip_calculator/widgets/bill_amount_field.dart';
 import 'package:p24_tip_calculator/widgets/person_counter.dart';
 import 'package:p24_tip_calculator/widgets/tip_row.dart';
 import 'package:p24_tip_calculator/widgets/tip_slider.dart';
+import 'package:p24_tip_calculator/widgets/toggle_theme_button.dart';
 import 'package:p24_tip_calculator/widgets/total_per_person.dart';
 import 'package:provider/provider.dart';
 
@@ -23,12 +24,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       title: 'UTip App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: themeProvider.currentTheme,
       home: const UTip(),
     );
   }
@@ -45,7 +44,6 @@ class _UTipState extends State<UTip> {
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<TipCalculatorModel>(context);
-    final themeProvider = Provider.of<ThemeProvider>(context);
 
     var theme = Theme.of(context);
     final style = theme.textTheme.titleMedium!.copyWith(
@@ -56,6 +54,9 @@ class _UTipState extends State<UTip> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('UTip Calculator'),
+        actions: const [
+          ToggleThemeButton(),
+        ],
       ),
       body: Center(
         child: Column(
