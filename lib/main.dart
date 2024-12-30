@@ -53,7 +53,7 @@ class _UTipState extends State<UTip> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('UTip Calculator'),
+        title: const Text('UTip Calculator'),
       ),
       body: Center(
         child: Column(
@@ -78,7 +78,7 @@ class _UTipState extends State<UTip> {
                   children: [
                     BillAmountField(
                       onChanged: (String value) {
-                        model.updateBillTotal(double.parse(value));
+                        model.updateBillTotal(double.tryParse(value) ?? 0.0);
                       },
                       billAmount: model.billTotal.toString(),
                     ),
@@ -86,8 +86,9 @@ class _UTipState extends State<UTip> {
                       theme: theme,
                       personCount: model.personCount,
                       onDecrement: () {
-                        if (model.personCount == 1) return;
-                        model.decrement();
+                        if (model.personCount > 1) {
+                          model.decrement();
+                        }
                       },
                       onIncrement: () {
                         model.increment();
@@ -95,7 +96,7 @@ class _UTipState extends State<UTip> {
                     ),
                     TipRow(theme: theme, totalT: model.totalTip),
                     Text('${(model.tipPercentage * 100).round()}%',
-                        style: theme.textTheme.titleMedium), // Update this line
+                        style: theme.textTheme.titleMedium),
                     TipSlider(
                       tipPercentage: model.tipPercentage,
                       onChanged: (double value) {
